@@ -7,7 +7,7 @@ package fontys.time;
 
 /**
  *
- * @author Paul
+ * @author Paul Pham
  */
 public class TimeSpan2 implements ITimeSpan {
 

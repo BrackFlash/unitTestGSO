@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Stan van der Vleuten
+ * @author Paul Pham
  */
 public class TimeSpan2Test {
 
