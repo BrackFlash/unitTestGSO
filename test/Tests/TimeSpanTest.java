@@ -24,15 +24,15 @@ public class TimeSpanTest {
 	public TimeSpanTest() {
 	}
 
-	private TimeSpan ts;
-	private Time bt;
-	private Time et;
+	private TimeSpan timeSpan;
+	private Time beginTime;
+	private Time endTime;
 
 	@Before
 	public void setUp() {
-		bt = new Time(2000, 11, 12, 12, 12);
-		et = new Time(2001, 11, 12, 12, 12);
-		ts = new TimeSpan(bt, et);
+		beginTime = new Time(2000, 11, 12, 12, 12);
+		endTime = new Time(2001, 11, 12, 12, 12);
+		timeSpan = new TimeSpan(beginTime, endTime);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class TimeSpanTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testTimeSpan() {
-		ts = new TimeSpan(new Time(2001, 11, 12, 12, 12), new Time(2000, 11, 12, 12, 12));
+		timeSpan = new TimeSpan(new Time(2001, 11, 12, 12, 12), new Time(2000, 11, 12, 12, 12));
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class TimeSpanTest {
 	 */
 	@Test
 	public void testGetBeginTime() {
-		assertSame(ts.getBeginTime(), bt);
+		assertSame(timeSpan.getBeginTime(), beginTime);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class TimeSpanTest {
 	 */
 	@Test
 	public void testGetEndTime() {
-		assertSame(ts.getEndTime(), et);
+		assertSame(timeSpan.getEndTime(), endTime);
 	}
 
 	/**
@@ -65,9 +65,9 @@ public class TimeSpanTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetBeginTimeEx() {
-		assertSame(ts.getBeginTime(), bt);
+		assertSame(timeSpan.getBeginTime(), beginTime);
 		Time nbt = new Time(2002, 11, 12, 12, 12);
-		ts.setBeginTime(nbt);
+		timeSpan.setBeginTime(nbt);
 	}
 
 	/**
@@ -75,10 +75,10 @@ public class TimeSpanTest {
 	 */
 	@Test
 	public void testSetBeginTime() {
-		assertSame(ts.getBeginTime(), bt);
+		assertSame(timeSpan.getBeginTime(), beginTime);
 		Time nbt = new Time(1999, 11, 12, 12, 12);
-		ts.setBeginTime(nbt);
-		assertSame(ts.getBeginTime(), nbt);
+		timeSpan.setBeginTime(nbt);
+		assertSame(timeSpan.getBeginTime(), nbt);
 	}
 
 	/**
@@ -87,9 +87,9 @@ public class TimeSpanTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testSetEndTimeEx() {
-		assertSame(ts.getEndTime(), et);
+		assertSame(timeSpan.getEndTime(), endTime);
 		Time net = new Time(1999, 11, 12, 12, 12);
-		ts.setEndTime(net);
+		timeSpan.setEndTime(net);
 	}
 
 	/**
@@ -97,10 +97,10 @@ public class TimeSpanTest {
 	 */
 	@Test
 	public void testSetEndTime() {
-		assertSame(ts.getEndTime(), et);
+		assertSame(timeSpan.getEndTime(), endTime);
 		Time net = new Time(2002, 11, 12, 12, 12);
-		ts.setEndTime(net);
-		assertSame(ts.getEndTime(), net);
+		timeSpan.setEndTime(net);
+		assertSame(timeSpan.getEndTime(), net);
 	}
 
 	/**
@@ -108,10 +108,10 @@ public class TimeSpanTest {
 	 */
 	@Test
 	public void testLength() {
-		bt = new Time(2000, 11, 12, 12, 0);
-		et = new Time(2000, 11, 12, 12, 60);
-		ts = new TimeSpan(bt, et);
-		assertEquals(ts.length(), et.difference(bt));
+		beginTime = new Time(2000, 11, 12, 12, 0);
+		endTime = new Time(2000, 11, 12, 12, 59);
+		timeSpan = new TimeSpan(beginTime, endTime);
+		assertEquals(timeSpan.length(), endTime.difference(beginTime));
 
 	}
 
@@ -121,14 +121,14 @@ public class TimeSpanTest {
 	@Test
 	public void testMove() {
 
-		assertEquals(ts.getBeginTime().getMinutes(), bt.getMinutes());
-		assertEquals(ts.getEndTime().getMinutes(), et.getMinutes());
-		ts.move(10);
-		assertEquals(ts.getBeginTime().getMinutes(), (bt.getMinutes() + 10));
-		assertEquals(ts.getEndTime().getMinutes(), (et.getMinutes() + 10));
-		ts.move(-10);
-		assertEquals(ts.getBeginTime().getMinutes(), bt.getMinutes());
-		assertEquals(ts.getEndTime().getMinutes(), et.getMinutes());
+		assertEquals(timeSpan.getBeginTime().getMinutes(), beginTime.getMinutes());
+		assertEquals(timeSpan.getEndTime().getMinutes(), endTime.getMinutes());
+		timeSpan.move(10);
+		assertEquals(timeSpan.getBeginTime().getMinutes(), (beginTime.getMinutes() + 10));
+		assertEquals(timeSpan.getEndTime().getMinutes(), (endTime.getMinutes() + 10));
+		timeSpan.move(-10);
+		assertEquals(timeSpan.getBeginTime().getMinutes(), beginTime.getMinutes());
+		assertEquals(timeSpan.getEndTime().getMinutes(), endTime.getMinutes());
 
 	}
 
@@ -137,7 +137,7 @@ public class TimeSpanTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testChangeLengthEx() {
-		ts.changeLengthWith(-1);
+		timeSpan.changeLengthWith(-1);
 
 	}
 
@@ -147,9 +147,9 @@ public class TimeSpanTest {
 	 */
 	@Test
 	public void testChangeLength() {
-		assertEquals(ts.getEndTime().getMinutes(), et.getMinutes());
-		ts.changeLengthWith(1);
-		assertEquals(ts.getEndTime().getMinutes(), (et.getMinutes() + 1));
+		assertEquals(timeSpan.getEndTime().getMinutes(), endTime.getMinutes());
+		timeSpan.changeLengthWith(1);
+		assertEquals(timeSpan.getEndTime().getMinutes(), (endTime.getMinutes() + 1));
 
 	}
 
@@ -163,17 +163,17 @@ public class TimeSpanTest {
 		Time nbt = new Time(2001, 2, 2, 2, 2);
 		Time net = new Time(2001, 11, 11, 11, 11);
 		TimeSpan nts = new TimeSpan(nbt, net);
-		assertEquals(true, ts.isPartOf(nts));
+		assertEquals(true, timeSpan.isPartOf(nts));
 
 		nbt = new Time(2000, 11, 12, 12, 12);
 		net = new Time(2101, 11, 12, 12, 12);
 		nts = new TimeSpan(nbt, net);
-		assertEquals(false, ts.isPartOf(nts));
+		assertEquals(false, timeSpan.isPartOf(nts));
 
 		nbt = new Time(0, 2, 2, 2, 2);
 		net = new Time(2201, 11, 11, 11, 11);
 		nts = new TimeSpan(nbt, net);
-		assertEquals(false, ts.isPartOf(nts));
+		assertEquals(false, timeSpan.isPartOf(nts));
 
 	}
 

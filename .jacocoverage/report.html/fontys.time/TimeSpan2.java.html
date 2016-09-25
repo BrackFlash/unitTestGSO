@@ -9,58 +9,114 @@ package fontys.time;
  *
  * @author Paul
  */
-<span class="nc" id="L12">public class TimeSpan2 implements ITimeSpan {</span>
+public class TimeSpan2 implements ITimeSpan {
 
     private ITime beginTime;
+    private long duration;
+
+<span class="fc" id="L17">    public TimeSpan2(ITime beginTime, ITime endTime) {</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        if (beginTime.compareTo(endTime) &lt;= 0) {</span>
+<span class="fc" id="L19">            throw new IllegalArgumentException(&quot;begin time &quot;</span>
+                    + beginTime + &quot; must be earlier than end time &quot; + endTime);
+        }
+<span class="fc" id="L22">        this.beginTime = beginTime;</span>
+<span class="fc" id="L23">        this.duration = beginTime.difference(endTime);</span>
+<span class="fc" id="L24">    }</span>
 
     @Override
     public ITime getBeginTime() {
-<span class="nc" id="L18">        return beginTime;</span>
+<span class="fc" id="L28">        return beginTime;</span>
     }
 
     @Override
     public ITime getEndTime() {
-<span class="nc" id="L23">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L33">        ITime endTime = this.beginTime.plus((int) duration);</span>
+<span class="fc" id="L34">        return endTime;</span>
     }
 
     @Override
     public int length() {
-<span class="nc" id="L28">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="fc" id="L39">        return this.getEndTime().difference(beginTime);</span>
     }
 
     @Override
     public void setBeginTime(ITime beginTime) {
-<span class="nc" id="L33">        this.beginTime = beginTime;</span>
-<span class="nc" id="L34">    }</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (beginTime.compareTo(getEndTime()) &lt;= 0) {</span>
+<span class="fc" id="L45">            throw new IllegalArgumentException(&quot;begin time &quot;</span>
+<span class="fc" id="L46">                    + beginTime + &quot; must be earlier than end time &quot; + getEndTime());</span>
+        }
+
+<span class="fc" id="L49">        this.beginTime = beginTime;</span>
+<span class="fc" id="L50">    }</span>
 
     @Override
     public void setEndTime(ITime endTime) {
-<span class="nc" id="L38">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
-    }
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if (endTime.compareTo(beginTime) &gt; 0) {</span>
+<span class="nc" id="L55">            throw new IllegalArgumentException(&quot;end time &quot;</span>
+                    + endTime + &quot; must be later then begin time &quot; + beginTime);
+        }
+<span class="nc" id="L58">        this.duration = beginTime.difference(endTime);</span>
+
+<span class="nc" id="L60">    }</span>
 
     @Override
     public void move(int minutes) {
-<span class="nc" id="L43">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
-    }
+<span class="fc" id="L64">        this.beginTime.plus(minutes);</span>
+<span class="fc" id="L65">        this.duration += minutes;</span>
+<span class="fc" id="L66">    }</span>
 
     @Override
     public void changeLengthWith(int minutes) {
-<span class="nc" id="L48">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
-    }
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (minutes &lt;= 0) {</span>
+<span class="fc" id="L71">            throw new IllegalArgumentException(&quot;lenght of period must be positive&quot;);</span>
+        }
+<span class="fc" id="L73">        this.duration += minutes;</span>
+<span class="fc" id="L74">    }</span>
 
     @Override
     public boolean isPartOf(ITimeSpan timeSpan) {
-<span class="nc" id="L53">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="pc bpc" id="L78" title="1 of 4 branches missed.">        return (getBeginTime().compareTo(timeSpan.getBeginTime()) &gt;= 0 &amp;&amp; getEndTime().compareTo(timeSpan.getEndTime()) &lt;= 0);</span>
     }
 
     @Override
     public ITimeSpan unionWith(ITimeSpan timeSpan) {
-<span class="nc" id="L58">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+<span class="pc bpc" id="L83" title="1 of 4 branches missed.">        if (beginTime.compareTo(timeSpan.getEndTime()) &gt; 0 || getEndTime().compareTo(timeSpan.getBeginTime()) &lt; 0) {</span>
+<span class="fc" id="L84">            return null;</span>
+        }
+        
+        ITime begintime, endtime;
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (beginTime.compareTo(timeSpan.getBeginTime()) &lt; 0) {</span>
+<span class="nc" id="L89">            begintime = beginTime;</span>
+        } else {
+<span class="nc" id="L91">            begintime = timeSpan.getBeginTime();</span>
+        }
+
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (getEndTime().compareTo(timeSpan.getEndTime()) &gt; 0) {</span>
+<span class="nc" id="L95">            endtime = getEndTime();</span>
+        } else {
+<span class="nc" id="L97">            endtime = timeSpan.getEndTime();</span>
+        }
+
+<span class="nc" id="L100">        return new TimeSpan(begintime, endtime);</span>
     }
 
     @Override
     public ITimeSpan intersectionWith(ITimeSpan timeSpan) {
-<span class="nc" id="L63">        throw new UnsupportedOperationException(&quot;Not supported yet.&quot;); //To change body of generated methods, choose Tools | Templates.</span>
+        ITime begintime, endtime;
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">		if (beginTime.compareTo(timeSpan.getBeginTime()) &gt; 0) {</span>
+<span class="fc" id="L107">			begintime = beginTime;</span>
+		} else {
+<span class="nc" id="L109">			begintime = timeSpan.getBeginTime();</span>
+		}
+
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">		if (getEndTime().compareTo(timeSpan.getEndTime()) &lt; 0) {</span>
+<span class="fc" id="L113">			endtime = timeSpan.getEndTime();</span>
+
+		} else {
+<span class="nc" id="L116">			endtime = getEndTime();</span>
+		}
+
+<span class="fc" id="L119">		return new TimeSpan(begintime, endtime);</span>
     }
 
 }
