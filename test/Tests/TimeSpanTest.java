@@ -185,7 +185,7 @@ public class TimeSpanTest {
 	public void testintersectionWidth() {
 
 		Time bt = new Time(2001, 1, 1, 1, 1);
-		Time et = new Time(2001, 11, 12, 12, 12);
+		Time et = new Time(2001, 12, 12, 12, 12);
 		TimeSpan ts = new TimeSpan(bt, et);
 
 		Time nbt = new Time(2001, 2, 2, 2, 2);
