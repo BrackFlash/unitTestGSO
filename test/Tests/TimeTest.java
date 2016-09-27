@@ -70,7 +70,7 @@ public class TimeTest {
     public void testTimeConstructorSuccesFull() {
         Time time = new Time(2016, 9, 21, 21, 21);
         assertEquals(2016, time.getYear());
-        assertEquals(9, time.getMonth());
+        assertEquals(8, time.getMonth());
         assertEquals(21, time.getDay());
         assertEquals(21, time.getHours());
         assertEquals(21, time.getMinutes());
@@ -88,8 +88,8 @@ public class TimeTest {
 
         }
         try {
-            Time time = new Time(1, 12, 1, 1, 1);
-            fail("It should go in the catch statement otherwise it failed, month > 13");
+            Time time = new Time(1, 13, 1, 1, 1);
+            fail("It should go in the catch statement otherwise it failed, month > 12");
         } catch (IllegalArgumentException ex) {
 
         }
@@ -162,7 +162,7 @@ public class TimeTest {
     @Test
     public void testDays() {
         for (int i = 1; i < 9; i++) {
-            Time time = new Time(2016, 8, i, 12, 29);
+            Time time = new Time(2016, 9, i, 12, 29);
             switch (i) {
                 case 1:
                     assertEquals(DayInWeek.THU, time.getDayInWeek());
@@ -190,6 +190,7 @@ public class TimeTest {
                     break;
             }
         }
+        //assertEquals(null, );
     }
 
     @Test
@@ -207,11 +208,11 @@ public class TimeTest {
     public void testTimeConstructor() {
         Time time = new Time(new Time(2016, 8, 24, 12, 1));
         assertEquals(2016, time.getYear());
-        assertEquals(8, time.getMonth());
+        assertEquals(7, time.getMonth());
         assertEquals(12, time.getHours());
         assertEquals(1, time.getMinutes());
         assertEquals(24, time.getDay());
-        assertEquals(DayInWeek.SAT, time.getDayInWeek());
+        assertEquals(DayInWeek.WED, time.getDayInWeek());
     }
 
     @Test
