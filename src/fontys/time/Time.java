@@ -31,7 +31,7 @@ public class Time implements ITime {
      * @param min 0≤m≤59
      */
     public Time(int y, int m, int d, int h, int min) {
-        if (m < 0 || m > 11) {
+        if (m < 1 || m > 12) {
             throw new IllegalArgumentException("month must be within 1..12");
         }
         if (d < 1 || d > 31) {
@@ -40,11 +40,12 @@ public class Time implements ITime {
         if (h < 0 || h > 23) {
             throw new IllegalArgumentException("hours must be within 0..23");
         }
+        //Minutes must be between 0-59
         if (min < 0 || min > 59) {
             throw new IllegalArgumentException("minutes must be within 0..59");
         }
-
-        gc = new GregorianCalendar(y, m, d, h, min);
+        //GregorianCalender months must be between 0 and 11. Therefore in the constructor the month = month -1;
+        gc = new GregorianCalendar(y, m - 1, d, h, min);
     }
 
     public Time(Time t) {
@@ -58,11 +59,11 @@ public class Time implements ITime {
      * @return 
      */
     @Override
-    public DayInWeek getDayInWeek(int testDay) {
+    public DayInWeek getDayInWeek() {
         int day_of_week = gc.get(GregorianCalendar.DAY_OF_WEEK);
-        if (testDay == -1) {
+        /*if (testDay == -1) {
             day_of_week = testDay;
-        }
+        }*/
         switch (day_of_week) {
             case GregorianCalendar.SUNDAY:
                 return DayInWeek.SUN;
@@ -81,7 +82,6 @@ public class Time implements ITime {
             default:
                 return null;
         }
-
     }
 
     @Override
@@ -118,15 +118,14 @@ public class Time implements ITime {
     @Override
     public int compareTo(ITime t) {
         Time time = (Time) t;
-        return time.gc.compareTo(gc);
+        return gc.compareTo(time.gc);
     }
 
     @Override
     public int difference(ITime time) {
         Time t = (Time) time;
         //return (int) (this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 600000);
-        //Er was een nul teveel en er bestaat een mogelijkheid dat er een negatief getal uit zou komen, daarom heb ik de absolute waarde van de uitkomst gepakt
-        
-        return (int) (Math.abs(this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000);
+        //Er was een nul teveel        
+        return (int) (this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000;
     }
 }

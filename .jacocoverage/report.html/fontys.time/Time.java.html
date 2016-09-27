@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Time.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;UnittestenTime&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">fontys.time</a> &gt; <span class="el_source">Time.java</span></div><h1>Time.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Time.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;UnittestenTime&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">fontys.time</a> &gt; <span class="el_source">Time.java</span></div><h1>Time.java</h1><pre class="source lang-java linenums">/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -58,12 +58,12 @@ public class Time implements ITime {
      * @return 
      */
     @Override
-    public DayInWeek getDayInWeek(int testDay) {
+    public DayInWeek getDayInWeek() {
 <span class="fc" id="L62">        int day_of_week = gc.get(GregorianCalendar.DAY_OF_WEEK);</span>
-<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (testDay == -1) {</span>
-<span class="fc" id="L64">            day_of_week = testDay;</span>
-        }
-<span class="fc bfc" id="L66" title="All 8 branches covered.">        switch (day_of_week) {</span>
+        /*if (testDay == -1) {
+            day_of_week = testDay;
+        }*/
+<span class="pc bpc" id="L66" title="1 of 8 branches missed.">        switch (day_of_week) {</span>
             case GregorianCalendar.SUNDAY:
 <span class="fc" id="L68">                return DayInWeek.SUN;</span>
             case GregorianCalendar.MONDAY:
@@ -79,55 +79,54 @@ public class Time implements ITime {
             case GregorianCalendar.SATURDAY:
 <span class="fc" id="L80">                return DayInWeek.SAT;</span>
             default:
-<span class="fc" id="L82">                return null;</span>
+<span class="nc" id="L82">                return null;</span>
         }
-
     }
 
     @Override
     public int getYear() {
-<span class="fc" id="L89">        return gc.get(GregorianCalendar.YEAR);</span>
+<span class="fc" id="L88">        return gc.get(GregorianCalendar.YEAR);</span>
     }
 
     @Override
     public int getMonth() {
-<span class="fc" id="L94">        return gc.get(GregorianCalendar.MONTH);</span>
+<span class="fc" id="L93">        return gc.get(GregorianCalendar.MONTH);</span>
     }
 
     @Override
     public int getDay() {
-<span class="fc" id="L99">        return gc.get(GregorianCalendar.DAY_OF_MONTH);</span>
+<span class="fc" id="L98">        return gc.get(GregorianCalendar.DAY_OF_MONTH);</span>
     }
 
     @Override
     public int getHours() {
-<span class="fc" id="L104">        return gc.get(GregorianCalendar.HOUR_OF_DAY);</span>
+<span class="fc" id="L103">        return gc.get(GregorianCalendar.HOUR_OF_DAY);</span>
     }
 
     @Override
     public int getMinutes() {
-<span class="fc" id="L109">        return gc.get(GregorianCalendar.MINUTE);</span>
+<span class="fc" id="L108">        return gc.get(GregorianCalendar.MINUTE);</span>
     }
 
     @Override
     public ITime plus(int minutes) {
-<span class="fc" id="L114">        gc.add(GregorianCalendar.MINUTE, minutes);</span>
-<span class="fc" id="L115">        return this;</span>
+<span class="fc" id="L113">        gc.add(GregorianCalendar.MINUTE, minutes);</span>
+<span class="fc" id="L114">        return this;</span>
     }
 
     @Override
     public int compareTo(ITime t) {
-<span class="fc" id="L120">        Time time = (Time) t;</span>
-<span class="fc" id="L121">        return time.gc.compareTo(gc);</span>
+<span class="fc" id="L119">        Time time = (Time) t;</span>
+<span class="fc" id="L120">        return time.gc.compareTo(gc);</span>
     }
 
     @Override
     public int difference(ITime time) {
-<span class="fc" id="L126">        Time t = (Time) time;</span>
+<span class="fc" id="L125">        Time t = (Time) time;</span>
         //return (int) (this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 600000);
         //Er was een nul teveel en er bestaat een mogelijkheid dat er een negatief getal uit zou komen, daarom heb ik de absolute waarde van de uitkomst gepakt
         
-<span class="fc" id="L130">        return (int) (Math.abs(this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000);</span>
+<span class="fc" id="L129">        return (int) (Math.abs(this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

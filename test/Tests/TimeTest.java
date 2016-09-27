@@ -165,28 +165,28 @@ public class TimeTest {
             Time time = new Time(2016, 8, i, 12, 29);
             switch (i) {
                 case 1:
-                    assertEquals(DayInWeek.THU, time.getDayInWeek(1));
+                    assertEquals(DayInWeek.THU, time.getDayInWeek());
                     break;
                 case 2:
-                    assertEquals(DayInWeek.FRI, time.getDayInWeek(1));
+                    assertEquals(DayInWeek.FRI, time.getDayInWeek());
                     break;
                 case 3:
-                    assertEquals(DayInWeek.SAT, time.getDayInWeek(1));
+                    assertEquals(DayInWeek.SAT, time.getDayInWeek());
                     break;
                 case 4:
-                    assertEquals(DayInWeek.SUN, time.getDayInWeek(1));
+                    assertEquals(DayInWeek.SUN, time.getDayInWeek());
                     break;
                 case 5:
-                    assertEquals(DayInWeek.MON, time.getDayInWeek(1));
+                    assertEquals(DayInWeek.MON, time.getDayInWeek());
                     break;
                 case 6:
-                    assertEquals(DayInWeek.TUE, time.getDayInWeek(1));
+                    assertEquals(DayInWeek.TUE, time.getDayInWeek());
                     break;
                 case 7:
-                    assertEquals(DayInWeek.WED, time.getDayInWeek(1));
+                    assertEquals(DayInWeek.WED, time.getDayInWeek());
                     break;
                 case 8:
-                    assertEquals(null, time.getDayInWeek(-1));
+                    //assertEquals(null, time.getDayInWeek());
                     break;
             }
         }
@@ -211,7 +211,7 @@ public class TimeTest {
         assertEquals(12, time.getHours());
         assertEquals(1, time.getMinutes());
         assertEquals(24, time.getDay());
-        assertEquals(DayInWeek.SAT, time.getDayInWeek(1));
+        assertEquals(DayInWeek.SAT, time.getDayInWeek());
     }
 
     @Test

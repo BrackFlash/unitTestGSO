@@ -42,7 +42,7 @@ public interface ITime extends Comparable<ITime> {
      * 
      * @return the concerning day in the week of this time
      */
-    DayInWeek getDayInWeek(int testDay);
+    DayInWeek getDayInWeek(/*int testDay*/);
     
     /**
      * 
