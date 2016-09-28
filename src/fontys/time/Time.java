@@ -22,7 +22,6 @@ public class Time implements ITime {
      * minutes m; if the combination of y-m-d refers to a non-existing date the
      * value of this Time-object will be not guaranteed
      *
-     * MONTHS START WITH 0 AND END AT 11!!!
      *
      * @param y
      * @param m 0≤m≤11
@@ -126,6 +125,6 @@ public class Time implements ITime {
         Time t = (Time) time;
         //return (int) (this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 600000);
         //Er was een nul teveel        
-        return (int) (this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000;
+        return (int) Math.abs((this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000);
     }
 }

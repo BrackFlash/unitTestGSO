@@ -5,6 +5,8 @@
  */
 package fontys.time;
 
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author Paul Pham
@@ -15,12 +17,12 @@ public class TimeSpan2 implements ITimeSpan {
     private long duration;
 
     public TimeSpan2(ITime beginTime, ITime endTime) {
-        if (beginTime.compareTo(endTime) <= 0) {
+        if (beginTime.compareTo(endTime) >= 0) {
             throw new IllegalArgumentException("begin time "
                     + beginTime + " must be earlier than end time " + endTime);
         }
-        this.beginTime = beginTime;
-        this.duration = beginTime.difference(endTime);
+        this.beginTime = (Time) beginTime;
+        this.duration = this.beginTime.difference(endTime);
     }
 
     @Override
@@ -30,18 +32,17 @@ public class TimeSpan2 implements ITimeSpan {
 
     @Override
     public ITime getEndTime() {
-        ITime endTime = this.beginTime.plus((int) duration);
-        return endTime;
+        return beginTime.plus((int) duration);
     }
 
     @Override
     public int length() {
-        return this.getEndTime().difference(beginTime);
+        return getEndTime().difference(this.beginTime);
     }
 
     @Override
     public void setBeginTime(ITime beginTime) {
-        if (beginTime.compareTo(getEndTime()) <= 0) {
+        if (beginTime.compareTo(getEndTime()) >= 0) {
             throw new IllegalArgumentException("begin time "
                     + beginTime + " must be earlier than end time " + getEndTime());
         }
@@ -51,7 +52,7 @@ public class TimeSpan2 implements ITimeSpan {
 
     @Override
     public void setEndTime(ITime endTime) {
-        if (endTime.compareTo(beginTime) > 0) {
+        if (endTime.compareTo(beginTime) <= 0) {
             throw new IllegalArgumentException("end time "
                     + endTime + " must be later then begin time " + beginTime);
         }
@@ -61,13 +62,12 @@ public class TimeSpan2 implements ITimeSpan {
 
     @Override
     public void move(int minutes) {
-        this.beginTime.plus(minutes);
-        this.duration += minutes;
+        this.beginTime = beginTime.plus(minutes);
     }
 
     @Override
     public void changeLengthWith(int minutes) {
-        if (minutes <= 0) {
+        if (minutes + length() <= 0) {
             throw new IllegalArgumentException("lenght of period must be positive");
         }
         this.duration += minutes;
@@ -83,7 +83,7 @@ public class TimeSpan2 implements ITimeSpan {
         if (beginTime.compareTo(timeSpan.getEndTime()) > 0 || getEndTime().compareTo(timeSpan.getBeginTime()) < 0) {
             return null;
         }
-        
+
         ITime begintime, endtime;
         if (beginTime.compareTo(timeSpan.getBeginTime()) < 0) {
             begintime = beginTime;
@@ -97,26 +97,30 @@ public class TimeSpan2 implements ITimeSpan {
             endtime = timeSpan.getEndTime();
         }
 
-        return new TimeSpan(begintime, endtime);
+        return new TimeSpan2(begintime, endtime);
     }
 
     @Override
     public ITimeSpan intersectionWith(ITimeSpan timeSpan) {
         ITime begintime, endtime;
-		if (beginTime.compareTo(timeSpan.getBeginTime()) > 0) {
-			begintime = beginTime;
-		} else {
-			begintime = timeSpan.getBeginTime();
-		}
 
-		if (getEndTime().compareTo(timeSpan.getEndTime()) < 0) {
-			endtime = timeSpan.getEndTime();
+        if (beginTime.compareTo(timeSpan.getBeginTime()) > 0) {
+            begintime = beginTime;
+        } else {
+            begintime = timeSpan.getBeginTime();
+        }
 
-		} else {
-			endtime = getEndTime();
-		}
+        if (this.getEndTime().compareTo(timeSpan.getEndTime()) < 0) {
+            endtime = this.getEndTime();
+        } else {
+            endtime = timeSpan.getEndTime();
+        }
 
-		return new TimeSpan(begintime, endtime);
+        if (begintime.compareTo(this.getEndTime()) >= 0) {
+            return null;
+        }
+
+        return new TimeSpan2(begintime, endtime);
     }
 
 }

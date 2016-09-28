@@ -15,14 +15,13 @@ import java.util.GregorianCalendar;
  */
 public class Time implements ITime {
 
-    private GregorianCalendar gc;
+    public GregorianCalendar gc;
 
     /**
      * creation of a time-object with year y, month m, day d, hours h and
      * minutes m; if the combination of y-m-d refers to a non-existing date the
      * value of this Time-object will be not guaranteed
      *
-     * MONTHS START WITH 0 AND END AT 11!!!
      *
      * @param y
      * @param m 0≤m≤11
@@ -30,21 +29,22 @@ public class Time implements ITime {
      * @param h 0≤h≤23
      * @param min 0≤m≤59
      */
-<span class="fc" id="L33">    public Time(int y, int m, int d, int h, int min) {</span>
-<span class="fc bfc" id="L34" title="All 4 branches covered.">        if (m &lt; 0 || m &gt; 11) {</span>
-<span class="fc" id="L35">            throw new IllegalArgumentException(&quot;month must be within 1..12&quot;);</span>
+<span class="fc" id="L32">    public Time(int y, int m, int d, int h, int min) {</span>
+<span class="fc bfc" id="L33" title="All 4 branches covered.">        if (m &lt; 1 || m &gt; 12) {</span>
+<span class="fc" id="L34">            throw new IllegalArgumentException(&quot;month must be within 1..12&quot;);</span>
         }
-<span class="fc bfc" id="L37" title="All 4 branches covered.">        if (d &lt; 1 || d &gt; 31) {</span>
-<span class="fc" id="L38">            throw new IllegalArgumentException(&quot;day must be within 1..31&quot;);</span>
+<span class="fc bfc" id="L36" title="All 4 branches covered.">        if (d &lt; 1 || d &gt; 31) {</span>
+<span class="fc" id="L37">            throw new IllegalArgumentException(&quot;day must be within 1..31&quot;);</span>
         }
-<span class="fc bfc" id="L40" title="All 4 branches covered.">        if (h &lt; 0 || h &gt; 23) {</span>
-<span class="fc" id="L41">            throw new IllegalArgumentException(&quot;hours must be within 0..23&quot;);</span>
+<span class="fc bfc" id="L39" title="All 4 branches covered.">        if (h &lt; 0 || h &gt; 23) {</span>
+<span class="fc" id="L40">            throw new IllegalArgumentException(&quot;hours must be within 0..23&quot;);</span>
         }
+        //Minutes must be between 0-59
 <span class="fc bfc" id="L43" title="All 4 branches covered.">        if (min &lt; 0 || min &gt; 59) {</span>
 <span class="fc" id="L44">            throw new IllegalArgumentException(&quot;minutes must be within 0..59&quot;);</span>
         }
-
-<span class="fc" id="L47">        gc = new GregorianCalendar(y, m, d, h, min);</span>
+        //GregorianCalender months must be between 0 and 11. Therefore in the constructor the month = month -1;
+<span class="fc" id="L47">        gc = new GregorianCalendar(y, m - 1, d, h, min);</span>
 <span class="fc" id="L48">    }</span>
 
 <span class="fc" id="L50">    public Time(Time t) {</span>
@@ -117,16 +117,15 @@ public class Time implements ITime {
     @Override
     public int compareTo(ITime t) {
 <span class="fc" id="L119">        Time time = (Time) t;</span>
-<span class="fc" id="L120">        return time.gc.compareTo(gc);</span>
+<span class="fc" id="L120">        return gc.compareTo(time.gc);</span>
     }
 
     @Override
     public int difference(ITime time) {
 <span class="fc" id="L125">        Time t = (Time) time;</span>
         //return (int) (this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 600000);
-        //Er was een nul teveel en er bestaat een mogelijkheid dat er een negatief getal uit zou komen, daarom heb ik de absolute waarde van de uitkomst gepakt
-        
-<span class="fc" id="L129">        return (int) (Math.abs(this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000);</span>
+        //Er was een nul teveel        
+<span class="fc" id="L128">        return (int) Math.abs((this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
