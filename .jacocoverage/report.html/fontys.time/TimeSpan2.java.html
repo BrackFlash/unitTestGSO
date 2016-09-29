@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TimeSpan2.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;UnittestenTime&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">fontys.time</a> &gt; <span class="el_source">TimeSpan2.java</span></div><h1>TimeSpan2.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TimeSpan2.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;UnittestenTime&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">fontys.time</a> &gt; <span class="el_source">TimeSpan2.java</span></div><h1>TimeSpan2.java</h1><pre class="source lang-java linenums">/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 public class TimeSpan2 implements ITimeSpan {
 
     private ITime beginTime;
-    public long duration;
+    private long duration;
 
 <span class="fc" id="L19">    public TimeSpan2(ITime beginTime, ITime endTime) {</span>
 <span class="fc bfc" id="L20" title="All 2 branches covered.">        if (beginTime.compareTo(endTime) &gt;= 0) {</span>
@@ -32,95 +32,97 @@ public class TimeSpan2 implements ITimeSpan {
 
     @Override
     public ITime getEndTime() {
-<span class="fc" id="L35">        return this.beginTime.plus((int) duration);//(Time)beginTime.plus((int)duration);</span>
+<span class="fc" id="L35">        Time copyBeginTime = new Time(beginTime.getYear(), beginTime.getMonth() + 1, beginTime.getDay(), beginTime.getHours(), beginTime.getMinutes());</span>
+<span class="fc" id="L36">        copyBeginTime = (Time) copyBeginTime.plus((int) duration);</span>
+<span class="fc" id="L37">        return copyBeginTime;</span>
     }
 
     @Override
     public int length() {
-<span class="fc" id="L40">        return getEndTime().difference(this.beginTime);</span>
+<span class="fc" id="L42">        return getEndTime().difference(this.beginTime);</span>
     }
 
     @Override
     public void setBeginTime(ITime beginTime) {
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (beginTime.compareTo(getEndTime()) &gt;= 0) {</span>
-<span class="fc" id="L46">            throw new IllegalArgumentException(&quot;begin time &quot;</span>
-<span class="fc" id="L47">                    + beginTime + &quot; must be earlier than end time &quot; + getEndTime());</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (beginTime.compareTo(getEndTime()) &gt;= 0) {</span>
+<span class="fc" id="L48">            throw new IllegalArgumentException(&quot;begin time &quot;</span>
+<span class="fc" id="L49">                    + beginTime + &quot; must be earlier than end time &quot; + getEndTime());</span>
         }
 
-<span class="fc" id="L50">        this.beginTime = beginTime;</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L52">        this.beginTime = beginTime;</span>
+<span class="fc" id="L53">    }</span>
 
     @Override
     public void setEndTime(ITime endTime) {
-<span class="nc bnc" id="L55" title="All 2 branches missed.">        if (endTime.compareTo(beginTime) &lt;= 0) {</span>
-<span class="nc" id="L56">            throw new IllegalArgumentException(&quot;end time &quot;</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (endTime.compareTo(beginTime) &lt;= 0) {</span>
+<span class="fc" id="L58">            throw new IllegalArgumentException(&quot;end time &quot;</span>
                     + endTime + &quot; must be later then begin time &quot; + beginTime);
         }
-<span class="nc" id="L59">        this.duration = beginTime.difference(endTime);</span>
+<span class="fc" id="L61">        this.duration = beginTime.difference(endTime);</span>
 
-<span class="nc" id="L61">    }</span>
+<span class="fc" id="L63">    }</span>
 
     @Override
     public void move(int minutes) {
-<span class="fc" id="L65">        this.beginTime = beginTime.plus(minutes);</span>
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L67">        this.beginTime = beginTime.plus(minutes);</span>
+<span class="fc" id="L68">    }</span>
 
     @Override
     public void changeLengthWith(int minutes) {
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (minutes + length() &lt;= 0) {</span>
-<span class="fc" id="L71">            throw new IllegalArgumentException(&quot;lenght of period must be positive&quot;);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (minutes + length() &lt;= 0) {</span>
+<span class="fc" id="L73">            throw new IllegalArgumentException(&quot;lenght of period must be positive&quot;);</span>
         }
-<span class="fc" id="L73">        this.duration += minutes;</span>
-<span class="fc" id="L74">    }</span>
+<span class="fc" id="L75">        this.duration += minutes;</span>
+<span class="fc" id="L76">    }</span>
 
     @Override
     public boolean isPartOf(ITimeSpan timeSpan) {
-<span class="fc bfc" id="L78" title="All 4 branches covered.">        return (getBeginTime().compareTo(timeSpan.getBeginTime()) &gt;= 0 &amp;&amp; getEndTime().compareTo(timeSpan.getEndTime()) &lt;= 0);</span>
+<span class="fc bfc" id="L80" title="All 4 branches covered.">        return (getBeginTime().compareTo(timeSpan.getBeginTime()) &gt;= 0 &amp;&amp; getEndTime().compareTo(timeSpan.getEndTime()) &lt;= 0);</span>
     }
 
     @Override
     public ITimeSpan unionWith(ITimeSpan timeSpan) {
-<span class="pc bpc" id="L83" title="2 of 4 branches missed.">        if (beginTime.compareTo(timeSpan.getEndTime()) &gt; 0 || getEndTime().compareTo(timeSpan.getBeginTime()) &lt; 0) {</span>
-<span class="fc" id="L84">            return null;</span>
+<span class="fc bfc" id="L85" title="All 4 branches covered.">        if (beginTime.compareTo(timeSpan.getEndTime()) &gt; 0 || getEndTime().compareTo(timeSpan.getBeginTime()) &lt; 0) {</span>
+<span class="fc" id="L86">            return null;</span>
         }
 
         ITime begintime, endtime;
-<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (beginTime.compareTo(timeSpan.getBeginTime()) &lt; 0) {</span>
-<span class="nc" id="L89">            begintime = beginTime;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (beginTime.compareTo(timeSpan.getBeginTime()) &lt; 0) {</span>
+<span class="fc" id="L91">            begintime = beginTime;</span>
         } else {
-<span class="nc" id="L91">            begintime = timeSpan.getBeginTime();</span>
+<span class="fc" id="L93">            begintime = timeSpan.getBeginTime();</span>
         }
 
-<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (getEndTime().compareTo(timeSpan.getEndTime()) &gt; 0) {</span>
-<span class="nc" id="L95">            endtime = getEndTime();</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (getEndTime().compareTo(timeSpan.getEndTime()) &gt; 0) {</span>
+<span class="fc" id="L97">            endtime = getEndTime();</span>
         } else {
-<span class="nc" id="L97">            endtime = timeSpan.getEndTime();</span>
+<span class="fc" id="L99">            endtime = timeSpan.getEndTime();</span>
         }
 
-<span class="nc" id="L100">        return new TimeSpan2(begintime, endtime);</span>
+<span class="fc" id="L102">        return new TimeSpan2(begintime, endtime);</span>
     }
 
     @Override
     public ITimeSpan intersectionWith(ITimeSpan timeSpan) {
         ITime begintime, endtime;
 
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (beginTime.compareTo(timeSpan.getBeginTime()) &gt; 0) {</span>
-<span class="nc" id="L108">            begintime = beginTime;</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (beginTime.compareTo(timeSpan.getBeginTime()) &gt; 0) {</span>
+<span class="fc" id="L110">            begintime = beginTime;</span>
         } else {
-<span class="fc" id="L110">            begintime = timeSpan.getBeginTime();</span>
+<span class="fc" id="L112">            begintime = timeSpan.getBeginTime();</span>
         }
 
-<span class="pc bpc" id="L113" title="1 of 2 branches missed.">        if (this.getEndTime().compareTo(timeSpan.getEndTime()) &lt; 0) {</span>
-<span class="nc" id="L114">            endtime = this.getEndTime();</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (this.getEndTime().compareTo(timeSpan.getEndTime()) &lt; 0) {</span>
+<span class="fc" id="L116">            endtime = this.getEndTime();</span>
         } else {
-<span class="fc" id="L116">            endtime = timeSpan.getEndTime();</span>
+<span class="fc" id="L118">            endtime = timeSpan.getEndTime();</span>
         }
 
-<span class="nc bnc" id="L119" title="All 2 branches missed.">        if (begintime.compareTo(this.getEndTime()) &gt;= 0) {</span>
-<span class="nc" id="L120">            return null;</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (begintime.compareTo(this.getEndTime()) &gt;= 0) {</span>
+<span class="fc" id="L122">            return null;</span>
         }
 
-<span class="nc" id="L123">        return new TimeSpan2(begintime, endtime);</span>
+<span class="fc" id="L125">        return new TimeSpan2(begintime, endtime);</span>
     }
 
 }

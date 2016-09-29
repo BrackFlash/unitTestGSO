@@ -127,4 +127,11 @@ public class Time implements ITime {
         //Er was een nul teveel        
         return (int) Math.abs((this.gc.getTimeInMillis() - t.gc.getTimeInMillis()) / 60000);
     }
+
+    @Override
+    public String toString() {
+        return "Time{" + "gc=" + gc + '}';
+    }
+    
+    
 }

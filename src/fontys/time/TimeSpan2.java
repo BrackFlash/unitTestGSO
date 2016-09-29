@@ -32,7 +32,9 @@ public class TimeSpan2 implements ITimeSpan {
 
     @Override
     public ITime getEndTime() {
-        return beginTime.plus((int) duration);
+        Time copyBeginTime = new Time(beginTime.getYear(), beginTime.getMonth() + 1, beginTime.getDay(), beginTime.getHours(), beginTime.getMinutes());
+        copyBeginTime = (Time) copyBeginTime.plus((int) duration);
+        return copyBeginTime;
     }
 
     @Override

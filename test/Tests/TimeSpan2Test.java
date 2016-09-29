@@ -5,14 +5,9 @@ package Tests;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import fontys.time.ITimeSpan;
 import fontys.time.Time;
 import fontys.time.TimeSpan2;
-import fontys.time.TimeSpan;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -32,7 +27,7 @@ public class TimeSpan2Test {
     @Before
     public void setUp() {
         beginTime = new Time(2000, 11, 12, 12, 12);
-        endTime = new Time(2001, 12, 12, 12, 12);
+        endTime = new Time(2001, 11, 12, 12, 12);
         timeSpan = new TimeSpan2(beginTime, endTime);
     }
 
@@ -50,6 +45,7 @@ public class TimeSpan2Test {
      */
     @Test
     public void testGetBeginTime() {
+
         assertSame(timeSpan.getBeginTime(), beginTime);
     }
 
@@ -58,15 +54,10 @@ public class TimeSpan2Test {
      */
     @Test
     public void testGetEndTime() {
-//        TimeSpan ts = new TimeSpan(beginTime, endTime);
-//        assertEquals(timeSpan.getEndTime().getMinutes(), ts.getEndTime().getMinutes());
-//        assertEquals(timeSpan.getEndTime().getDay(), ts.getEndTime().getDay());
-//        assertEquals(timeSpan.getEndTime().getMonth(), ts.getEndTime().getMonth());
-//        assertEquals(timeSpan.getEndTime().getYear(), ts.getEndTime().getYear());
-        System.out.println(timeSpan.getEndTime().getYear() + " --> " + endTime.getYear());
-        System.out.println(timeSpan.getEndTime().getMonth() + " --> " + endTime.getMonth());
-        System.out.println(timeSpan.getEndTime().getDay() + " --> " + endTime.getDay());
-        System.out.println(timeSpan.getEndTime().getMinutes() + " --> " + endTime.getMinutes());
+        assertEquals(timeSpan.getEndTime().getYear(), endTime.getYear());
+        assertEquals(timeSpan.getEndTime().getMonth(), endTime.getMonth());
+        assertEquals(timeSpan.getEndTime().getDay(), endTime.getDay());
+        assertEquals(timeSpan.getEndTime().getMinutes(), endTime.getMinutes());
     }
 
     /**
@@ -96,10 +87,8 @@ public class TimeSpan2Test {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testSetEndTimeEx() {
-
-        assertSame(timeSpan.getEndTime(), endTime);
-        Time net = new Time(1999, 11, 12, 12, 12);
-        timeSpan.setEndTime(net);
+        Time newFailEndTime = new Time(1999, 11, 12, 12, 12);
+        timeSpan.setEndTime(newFailEndTime);
     }
 
     /**
@@ -107,10 +96,12 @@ public class TimeSpan2Test {
      */
     @Test
     public void testSetEndTime() {
-        assertSame(timeSpan.getEndTime(), endTime);
-        Time net = new Time(2002, 11, 12, 12, 12);
-        timeSpan.setEndTime(net);
-        assertSame(timeSpan.getEndTime(), net);
+        Time newEndTime = new Time(2002, 11, 12, 12, 12);
+        timeSpan.setEndTime(newEndTime);
+        assertEquals(timeSpan.getEndTime().getYear(), newEndTime.getYear());
+        assertEquals(timeSpan.getEndTime().getMonth(), newEndTime.getMonth());
+        assertEquals(timeSpan.getEndTime().getDay(), newEndTime.getDay());
+        assertEquals(timeSpan.getEndTime().getMinutes(), newEndTime.getMinutes());
     }
 
     /**
@@ -122,7 +113,6 @@ public class TimeSpan2Test {
         endTime = new Time(2000, 11, 12, 12, 59);
         timeSpan = new TimeSpan2(beginTime, endTime);
         assertEquals(timeSpan.length(), endTime.difference(beginTime));
-
     }
 
     /**
@@ -220,8 +210,8 @@ public class TimeSpan2Test {
 
         ts = new TimeSpan2(bt, et);
 
-        nbt = new Time(2001, 1, 1, 1, 1);
-        net = new Time(2001, 2, 2, 2, 2);
+        nbt = new Time(2003, 1, 1, 1, 1);
+        net = new Time(2004, 2, 2, 2, 2);
         nts = new TimeSpan2(nbt, net);
         nnts = (TimeSpan2) ts.intersectionWith(nts);
         assertEquals(null, nnts);
