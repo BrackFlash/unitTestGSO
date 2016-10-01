@@ -55,7 +55,8 @@ public class Appointment {
 	}
 
 	/**
-	 * adds a 
+	 * adds a
+	 *
 	 * @param c the contact that needs to be added, can only be added if the
 	 * current appointment does not overlap with other appoitments that are
 	 * in his/her agenda
@@ -72,11 +73,17 @@ public class Appointment {
 	}
 
 	/**
-	 * Removes a contact from list, when the contact is not in current list a 
-	 * @param c the contact that is supposed to be removed, has to be in list
+	 * Removes a contact from list
+	 *
+	 * @param c the contact that is supposed to be removed, has to be in
+	 * list
 	 */
 	public void removeContact(Contact c) {
-
+		for (Iterator<Contact> inviteesIt = this.invitees.iterator(); inviteesIt.hasNext();) {
+			if (inviteesIt.next() == c) {
+				invitees.remove(c);
+			}
+		}
 	}
 
 }
