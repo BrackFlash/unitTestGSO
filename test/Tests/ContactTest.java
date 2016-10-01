@@ -25,6 +25,9 @@ public class ContactTest {
     private Appointment secondAppointment;
     private Appointment thirdAppointment;
 
+    /**
+     * Initializes the fields of the testclass.
+     */
     @Before
     public void setUp() {
         this.firstContact = new Contact("Henk");
@@ -57,6 +60,9 @@ public class ContactTest {
         assertTrue(this.thirdAppointment.addContact(this.firstContact));
     }
 
+    /**
+     * Removes the appointment of a contact via the appointment object
+     */
     @Test
     public void testRemoveAppointment() {
         assertFalse(this.thirdAppointment.invitees().hasNext());
@@ -65,6 +71,9 @@ public class ContactTest {
         assertFalse(this.thirdAppointment.invitees().hasNext());
     }
     
+    /**
+     * Removes an nonexisting inivitee of an appointment
+     */
     @Test
     public void testRemoveNonExistingContact(){
         assertFalse(this.firstAppointment.invitees().hasNext());
