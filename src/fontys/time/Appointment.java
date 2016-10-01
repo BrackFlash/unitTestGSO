@@ -6,10 +6,12 @@ package fontys.time;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 /**
  *
  * @author Stan
  */
+
 public class Appointment {
 
     private String subject;
@@ -69,6 +71,7 @@ public class Appointment {
             System.out.println("Ammount of contacts: " + this.invitees.size());
             return true;
         } else if (c.addAppointment(this) == true) {
+		this.invitees.add(c);
             return true;
         } 
         return false;
