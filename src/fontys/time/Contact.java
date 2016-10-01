@@ -15,25 +15,52 @@ import java.util.List;
  */
 public class Contact {
 
+    /**
+     * Name of a contact
+     */
 	private String name;
-	private List<Appointment> agenda;
+    
+    /**
+     * The agenda of a contact
+     */
+	private ArrayList<Appointment> agenda;
 
+    /**
+     * Constructor of the contact class initializes the name and agenda
+     * @param name 
+     */
 	public Contact(String name) {
 		this.name = name;
-		agenda = new ArrayList<>();
+		this.agenda = new ArrayList<>();
 	}
 
+    /**
+     * 
+     * @return Returns the name of the contact
+     */
 	public String getName() {
 		return this.name;
 	}
 
+    /**
+     * Adds an appointment to the agenda of the contact
+     * @param a The appointment that is trying to be added to the agenda
+     * @return If an appointment is succesfully added then the method will return true, otherwise false
+     */
 	protected boolean addAppointment(Appointment a) {
-		for (Appointment appointment : agenda) {
-			//if (appointment timespan intersects with a timespan) {
-			return false;
-			//}
-		}
-		this.agenda.add(a);
+        /*while(appointments().hasNext()){
+            if (appointments().next().getTimeSpan().intersectionWith(a.getTimeSpan()) != null) {
+                return false;
+            }
+            appointments().next();
+        }*/
+        for (Iterator<Appointment> app = appointments(); app.hasNext();) {
+           if (app.next().getTimeSpan().intersectionWith(a.getTimeSpan()) != null) {
+                return false;
+            }
+        }
+        
+        this.agenda.add(a);
 		return true;
 	}
 
@@ -42,10 +69,8 @@ public class Contact {
 	}
 
 	public Iterator<Appointment> appointments() {
-
-		Iterator<Appointment> appointmentsIterator = agenda.iterator();
-		return appointmentsIterator;
-
+		//Iterator<Appointment> appointmentsIterator = agenda.iterator();
+		return agenda.iterator();
 	}
 
 }
