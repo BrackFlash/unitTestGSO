@@ -1,15 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Appointment.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;UnittestenTime&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">fontys.time</a> &gt; <span class="el_source">Appointment.java</span></div><h1>Appointment.java</h1><pre class="source lang-java linenums">/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *
  */
 package fontys.time;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  *
- * @author Paul
+ * @author Stan
  */
-<span class="nc" id="L12">public class Appointment {</span>
-    
+public class Appointment {
+
+	private String subject;
+	private ITimeSpan timeSpan;
+	private List&lt;Contact&gt; invitees;
+
+	/**
+	 *
+	 * @param subject a string containting the subject of the appointment,
+	 * can be empty
+	 * @param timeSpan the timespan during which the appointment will take
+	 * place
+	 */
+<span class="fc" id="L27">	public Appointment(String subject, ITimeSpan timeSpan) {</span>
+<span class="fc" id="L28">		this.subject = subject;</span>
+<span class="fc" id="L29">		this.timeSpan = timeSpan;</span>
+<span class="fc" id="L30">		invitees = new ArrayList&lt;Contact&gt;();</span>
+
+<span class="fc" id="L32">	}</span>
+
+	/**
+	 *
+	 * @return the subject of this appointment
+	 */
+	public String getSubject() {
+<span class="fc" id="L39">		return subject;</span>
+	}
+
+	/**
+	 *
+	 * @return the timespan of this appointment
+	 */
+	public ITimeSpan getTimeSpan() {
+<span class="fc" id="L47">		return timeSpan;</span>
+	}
+
+	/**
+	 *
+	 * @return an iterator of the invitees list
+	 */
+	public Iterator&lt;Contact&gt; invitees() {
+
+<span class="fc" id="L56">		Iterator&lt;Contact&gt; inviteesIterator = invitees.iterator();</span>
+<span class="fc" id="L57">		return inviteesIterator;</span>
+	}
+
+	/**
+	 * adds a
+	 *
+	 * @param c the contact that needs to be added, can only be added if the
+	 * current appointment does not overlap with other appoitments that are
+	 * in his/her agenda
+	 * @return boolean, false if it adding failed and true if it succeeded
+	 */
+	public boolean addContact(Contact c) {
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">		if (!c.appointments().hasNext()) {</span>
+<span class="fc" id="L70">			this.invitees.add(c);</span>
+<span class="fc" id="L71">			return true;</span>
+		} else {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">			while (c.appointments().hasNext()) {</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">				if (c.appointments().next().getTimeSpan().intersectionWith(timeSpan) != null) {</span>
+<span class="nc" id="L75">					return false;</span>
+				} else {
+<span class="nc" id="L77">					this.invitees.add(c);</span>
+<span class="nc" id="L78">					return true;</span>
+				}
+			}
+
+		}
+<span class="nc" id="L83">		return false;</span>
+	}
+
+	/**
+	 * Removes a contact from list
+	 *
+	 * @param c the contact that is supposed to be removed, has to be in
+	 * list
+	 */
+	public void removeContact(Contact c) {
+<span class="nc bnc" id="L93" title="All 2 branches missed.">		for (Iterator&lt;Contact&gt; inviteesIt = this.invitees.iterator(); inviteesIt.hasNext();) {</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">			if (inviteesIt.next() == c) {</span>
+<span class="nc" id="L95">				invitees.remove(c);</span>
+			}
+		}
+<span class="nc" id="L98">	}</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

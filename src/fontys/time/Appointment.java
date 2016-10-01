@@ -3,6 +3,7 @@
  */
 package fontys.time;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class Appointment {
 	public Appointment(String subject, ITimeSpan timeSpan) {
 		this.subject = subject;
 		this.timeSpan = timeSpan;
+		invitees = new ArrayList<Contact>();
 
 	}
 
@@ -50,6 +52,7 @@ public class Appointment {
 	 * @return an iterator of the invitees list
 	 */
 	public Iterator<Contact> invitees() {
+
 		Iterator<Contact> inviteesIterator = invitees.iterator();
 		return inviteesIterator;
 	}
@@ -63,13 +66,21 @@ public class Appointment {
 	 * @return boolean, false if it adding failed and true if it succeeded
 	 */
 	public boolean addContact(Contact c) {
-		while (c.appointments().hasNext()) {
-			if (c.appointments().next().getTimeSpan().intersectionWith(timeSpan) != null) {
-				return false;
+		if (!c.appointments().hasNext()) {
+			this.invitees.add(c);
+			return true;
+		} else {
+			while (c.appointments().hasNext()) {
+				if (c.appointments().next().getTimeSpan().intersectionWith(timeSpan) != null) {
+					return false;
+				} else {
+					this.invitees.add(c);
+					return true;
+				}
 			}
+
 		}
-		this.invitees.add(c);
-		return true;
+		return false;
 	}
 
 	/**

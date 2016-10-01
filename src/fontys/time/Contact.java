@@ -5,6 +5,7 @@
  */
 package fontys.time;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class Contact {
 
 	public Contact(String name) {
 		this.name = name;
+		agenda = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -40,8 +42,10 @@ public class Contact {
 	}
 
 	public Iterator<Appointment> appointments() {
+
 		Iterator<Appointment> appointmentsIterator = agenda.iterator();
 		return appointmentsIterator;
+
 	}
 
 }

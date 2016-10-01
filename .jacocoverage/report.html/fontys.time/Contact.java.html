@@ -5,6 +5,7 @@
  */
 package fontys.time;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,33 +15,38 @@ import java.util.List;
  */
 public class Contact {
 
-    private String name;
-    private List&lt;Appointment&gt; agenda;
+	private String name;
+	private List&lt;Appointment&gt; agenda;
 
-<span class="nc" id="L20">    public Contact(String name) {</span>
-<span class="nc" id="L21">        this.name = name;</span>
-<span class="nc" id="L22">    }</span>
+<span class="fc" id="L21">	public Contact(String name) {</span>
+<span class="fc" id="L22">		this.name = name;</span>
+<span class="fc" id="L23">		agenda = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L24">	}</span>
 
-    public String getName() {
-<span class="nc" id="L25">        return this.name;</span>
-    }
+	public String getName() {
+<span class="nc" id="L27">		return this.name;</span>
+	}
 
-    protected boolean addAppointment(Appointment a) {
-<span class="nc bnc" id="L29" title="All 2 branches missed.">        for(Appointment appointment: agenda){</span>
-            //if (appointment timespan intersects with a timespan) {
-<span class="nc" id="L31">              return false;  </span>
-            //}
-        }
-<span class="nc" id="L34">        this.agenda.add(a);</span>
-<span class="nc" id="L35">        return true;</span>
-    }
-    
-    protected void removeAppointment(Appointment a){
-<span class="nc" id="L39">        this.agenda.remove(a);</span>
-<span class="nc" id="L40">    }</span>
-    
-   // public Iterator&lt;Appointment&gt; appointments(){
-     //   return this.agenda;
-    //}
+	protected boolean addAppointment(Appointment a) {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">		for (Appointment appointment : agenda) {</span>
+			//if (appointment timespan intersects with a timespan) {
+<span class="nc" id="L33">			return false;</span>
+			//}
+		}
+<span class="nc" id="L36">		this.agenda.add(a);</span>
+<span class="nc" id="L37">		return true;</span>
+	}
+
+	protected void removeAppointment(Appointment a) {
+<span class="nc" id="L41">		this.agenda.remove(a);</span>
+<span class="nc" id="L42">	}</span>
+
+	public Iterator&lt;Appointment&gt; appointments() {
+
+<span class="fc" id="L46">		Iterator&lt;Appointment&gt; appointmentsIterator = agenda.iterator();</span>
+<span class="fc" id="L47">		return appointmentsIterator;</span>
+
+	}
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>
