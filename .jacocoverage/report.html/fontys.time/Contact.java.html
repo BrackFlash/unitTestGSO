@@ -48,29 +48,22 @@ public class Contact {
      * @return If an appointment is succesfully added then the method will return true, otherwise false
      */
 	protected boolean addAppointment(Appointment a) {
-        /*while(appointments().hasNext()){
-            if (appointments().next().getTimeSpan().intersectionWith(a.getTimeSpan()) != null) {
-                return false;
-            }
-            appointments().next();
-        }*/
-<span class="fc bfc" id="L57" title="All 2 branches covered.">        for (Iterator&lt;Appointment&gt; app = appointments(); app.hasNext();) {</span>
-<span class="fc bfc" id="L58" title="All 2 branches covered.">           if (app.next().getTimeSpan().intersectionWith(a.getTimeSpan()) != null) {</span>
-<span class="fc" id="L59">                return false;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        for (Iterator&lt;Appointment&gt; app = appointments(); app.hasNext();) {</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">           if (app.next().getTimeSpan().intersectionWith(a.getTimeSpan()) != null) {</span>
+<span class="fc" id="L53">                return false;</span>
             }
         }
         
-<span class="fc" id="L63">        this.agenda.add(a);</span>
-<span class="fc" id="L64">		return true;</span>
+<span class="fc" id="L57">        this.agenda.add(a);</span>
+<span class="fc" id="L58">		return true;</span>
 	}
 
 	protected void removeAppointment(Appointment a) {
-<span class="nc" id="L68">		this.agenda.remove(a);</span>
-<span class="nc" id="L69">	}</span>
+<span class="fc" id="L62">		this.agenda.remove(a);</span>
+<span class="fc" id="L63">	}</span>
 
 	public Iterator&lt;Appointment&gt; appointments() {
-		//Iterator&lt;Appointment&gt; appointmentsIterator = agenda.iterator();
-<span class="fc" id="L73">		return agenda.iterator();</span>
+<span class="fc" id="L66">		return agenda.iterator();</span>
 	}
 
 }

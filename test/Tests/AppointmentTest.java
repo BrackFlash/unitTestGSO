@@ -7,14 +7,11 @@ package Tests;
 
 import fontys.time.Appointment;
 import fontys.time.Contact;
-import fontys.time.ITimeSpan;
 import fontys.time.Time;
 import fontys.time.TimeSpan;
 import java.util.Iterator;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

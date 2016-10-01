@@ -9,7 +9,6 @@ import fontys.time.Appointment;
 import fontys.time.Contact;
 import fontys.time.Time;
 import fontys.time.TimeSpan;
-import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,14 +19,16 @@ import static org.junit.Assert.*;
  */
 public class ContactTest {
 
-    private Contact contact;
+    private Contact firstContact;
+    private Contact secondContact;
     private Appointment firstAppointment;
     private Appointment secondAppointment;
     private Appointment thirdAppointment;
 
     @Before
     public void setUp() {
-        this.contact = new Contact("Henk");
+        this.firstContact = new Contact("Henk");
+        this.secondContact = new Contact("Stefan");
         this.firstAppointment = new Appointment("Unit testen GSO", new TimeSpan(new Time(2016, 9, 20, 10, 10), new Time(2016, 9, 25, 15, 15)));
         this.secondAppointment = new Appointment("Naar huis gaan", new TimeSpan(new Time(2016, 9, 24, 10, 10), new Time(2016, 10, 1, 1, 1)));
         this.thirdAppointment = new Appointment("Unit testen is leuk", new TimeSpan(new Time(2015, 9, 24, 10, 10), new Time(2015, 10, 1, 1, 1)));
@@ -39,8 +40,8 @@ public class ContactTest {
      */
     @Test
     public void testConstructor() {
-        assertEquals("Henk", this.contact.getName());
-        assertNotNull(this.contact.appointments());
+        assertEquals("Henk", this.firstContact.getName());
+        assertNotNull(this.firstContact.appointments());
     }
 
     /**
@@ -51,17 +52,25 @@ public class ContactTest {
      */
     @Test
     public void testAddAppointment() {
-        assertTrue(this.firstAppointment.addContact(this.contact));
-        assertFalse(this.secondAppointment.addContact(this.contact));
-        assertTrue(this.thirdAppointment.addContact(this.contact));
+        assertTrue(this.firstAppointment.addContact(this.firstContact));
+        assertFalse(this.secondAppointment.addContact(this.firstContact));
+        assertTrue(this.thirdAppointment.addContact(this.firstContact));
     }
 
     @Test
     public void testRemoveAppointment() {
         assertFalse(this.thirdAppointment.invitees().hasNext());
-        this.thirdAppointment.addContact(this.contact);
-        thirdAppointment.removeContact(this.contact);
+        this.thirdAppointment.addContact(this.firstContact);
+        thirdAppointment.removeContact(this.firstContact);
         assertFalse(this.thirdAppointment.invitees().hasNext());
+    }
+    
+    @Test
+    public void testRemoveNonExistingContact(){
+        assertFalse(this.firstAppointment.invitees().hasNext());
+        this.firstAppointment.addContact(firstContact);
+        assertTrue(this.firstAppointment.invitees().hasNext());
+        this.firstAppointment.removeContact(secondContact);
     }
 
 }

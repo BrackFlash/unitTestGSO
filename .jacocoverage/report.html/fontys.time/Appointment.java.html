@@ -5,7 +5,6 @@ package fontys.time;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  *
@@ -23,19 +22,19 @@ public class Appointment {
      * be empty
      * @param timeSpan the timespan during which the appointment will take place
      */
-<span class="fc" id="L26">    public Appointment(String subject, ITimeSpan timeSpan) {</span>
-<span class="fc" id="L27">        this.subject = subject;</span>
-<span class="fc" id="L28">        this.timeSpan = timeSpan;</span>
-<span class="fc" id="L29">        invitees = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L25">    public Appointment(String subject, ITimeSpan timeSpan) {</span>
+<span class="fc" id="L26">        this.subject = subject;</span>
+<span class="fc" id="L27">        this.timeSpan = timeSpan;</span>
+<span class="fc" id="L28">        invitees = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L31">    }</span>
+<span class="fc" id="L30">    }</span>
 
     /**
      *
      * @return the subject of this appointment
      */
     public String getSubject() {
-<span class="fc" id="L38">        return subject;</span>
+<span class="fc" id="L37">        return subject;</span>
     }
 
     /**
@@ -43,7 +42,7 @@ public class Appointment {
      * @return the timespan of this appointment
      */
     public ITimeSpan getTimeSpan() {
-<span class="fc" id="L46">        return timeSpan;</span>
+<span class="fc" id="L45">        return timeSpan;</span>
     }
 
     /**
@@ -51,8 +50,8 @@ public class Appointment {
      * @return an iterator of the invitees list
      */
     public Iterator&lt;Contact&gt; invitees() {
-<span class="fc" id="L54">        Iterator&lt;Contact&gt; inviteesIterator = invitees.iterator();</span>
-<span class="fc" id="L55">        return inviteesIterator;</span>
+<span class="fc" id="L53">        Iterator&lt;Contact&gt; inviteesIterator = invitees.iterator();</span>
+<span class="fc" id="L54">        return inviteesIterator;</span>
     }
 
     /**
@@ -64,15 +63,15 @@ public class Appointment {
      * @return boolean, false if it adding failed and true if it succeeded
      */
     public boolean addContact(Contact c) {
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (!c.appointments().hasNext()) {</span>
-<span class="fc" id="L68">            this.invitees.add(c);</span>
-<span class="fc" id="L69">            c.addAppointment(this);</span>
-<span class="fc" id="L70">            System.out.println(&quot;Ammount of contacts: &quot; + this.invitees.size());</span>
-<span class="fc" id="L71">            return true;</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        } else if (c.addAppointment(this) == true) {</span>
-<span class="fc" id="L73">            return true;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (!c.appointments().hasNext()) {</span>
+<span class="fc" id="L67">            this.invitees.add(c);</span>
+<span class="fc" id="L68">            c.addAppointment(this);</span>
+<span class="fc" id="L69">            System.out.println(&quot;Ammount of contacts: &quot; + this.invitees.size());</span>
+<span class="fc" id="L70">            return true;</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        } else if (c.addAppointment(this) == true) {</span>
+<span class="fc" id="L72">            return true;</span>
         } 
-<span class="fc" id="L75">        return false;</span>
+<span class="fc" id="L74">        return false;</span>
     }
 
     /**
@@ -81,13 +80,17 @@ public class Appointment {
      * @param c the contact that is supposed to be removed, has to be in list
      */
     public void removeContact(Contact c) {
-<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        for (Iterator&lt;Contact&gt; inviteesIt = this.invitees(); inviteesIt.hasNext();) {</span>
-<span class="nc" id="L85">            System.out.println(&quot;Test&quot;);</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">            if (inviteesIt.next() == c) {</span>
-<span class="nc" id="L87">                invitees.remove(c);</span>
+<span class="fc" id="L83">        Contact removedContact = null;</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        for (Iterator&lt;Contact&gt; inviteesIt = this.invitees(); inviteesIt.hasNext();) {</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">            if (inviteesIt.next() == c) {</span>
+<span class="fc" id="L86">                removedContact = c;</span>
             }
         }
-<span class="fc" id="L90">    }</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        if (removedContact != null) {</span>
+<span class="fc" id="L90">            invitees.remove(removedContact);</span>
+<span class="fc" id="L91">            c.removeAppointment(this);</span>
+        }
+<span class="fc" id="L93">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span></div></body></html>

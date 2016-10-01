@@ -5,7 +5,6 @@ package fontys.time;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  *
@@ -81,11 +80,15 @@ public class Appointment {
      * @param c the contact that is supposed to be removed, has to be in list
      */
     public void removeContact(Contact c) {
+        Contact removedContact = null;
         for (Iterator<Contact> inviteesIt = this.invitees(); inviteesIt.hasNext();) {
-            System.out.println("Test");
             if (inviteesIt.next() == c) {
-                invitees.remove(c);
+                removedContact = c;
             }
+        }
+        if (removedContact != null) {
+            invitees.remove(removedContact);
+            c.removeAppointment(this);
         }
     }
 
