@@ -55,16 +55,26 @@ public class Appointment {
 	}
 
 	/**
-	 *
+	 * adds a 
 	 * @param c the contact that needs to be added, can only be added if the
 	 * current appointment does not overlap with other appoitments that are
 	 * in his/her agenda
-	 * @return
+	 * @return boolean, false if it adding failed and true if it succeeded
 	 */
 	public boolean addContact(Contact c) {
+		while (c.appointments().hasNext()) {
+			if (c.appointments().next().getTimeSpan().intersectionWith(timeSpan) != null) {
+				return false;
+			}
+		}
+		this.invitees.add(c);
 		return true;
 	}
 
+	/**
+	 * Removes a contact from list, when the contact is not in current list a 
+	 * @param c the contact that is supposed to be removed, has to be in list
+	 */
 	public void removeContact(Contact c) {
 
 	}

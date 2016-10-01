@@ -14,32 +14,34 @@ import java.util.List;
  */
 public class Contact {
 
-    private String name;
-    private List<Appointment> agenda;
+	private String name;
+	private List<Appointment> agenda;
 
-    public Contact(String name) {
-        this.name = name;
-    }
+	public Contact(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    protected boolean addAppointment(Appointment a) {
-        for(Appointment appointment: agenda){
-            //if (appointment timespan intersects with a timespan) {
-              return false;  
-            //}
-        }
-        this.agenda.add(a);
-        return true;
-    }
-    
-    protected void removeAppointment(Appointment a){
-        this.agenda.remove(a);
-    }
-    
-   // public Iterator<Appointment> appointments(){
-     //   return this.agenda;
-    //}
+	protected boolean addAppointment(Appointment a) {
+		for (Appointment appointment : agenda) {
+			//if (appointment timespan intersects with a timespan) {
+			return false;
+			//}
+		}
+		this.agenda.add(a);
+		return true;
+	}
+
+	protected void removeAppointment(Appointment a) {
+		this.agenda.remove(a);
+	}
+
+	public Iterator<Appointment> appointments() {
+		Iterator<Appointment> appointmentsIterator = agenda.iterator();
+		return appointmentsIterator;
+	}
+
 }
