@@ -6,9 +6,8 @@ package fontys.time;
 
 /**
  *
- * @author Frank Peeters, Nico Kuijpers
+ * @author Stan van der Vleuten
  *
- * LET OP: De klasse TimeSpan bevat enkele fouten.
  *
  */
 public class TimeSpan implements ITimeSpan {

@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author stan
+ * @author Stan van der Vleuten
  */
 public class AppointmentTest {
 

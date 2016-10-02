@@ -10,7 +10,6 @@ import java.util.GregorianCalendar;
  *
  * @author Paul Pham
  *
- * LET OP: De klasse Time bevat enkele fouten.
  *
  */
 public class Time implements ITime {

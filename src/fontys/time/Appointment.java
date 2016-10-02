@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author Stan
+ * @author Stan van der Vleuten
  */
 
 public class Appointment {
